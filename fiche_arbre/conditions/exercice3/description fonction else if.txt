@@ -1,0 +1,13 @@
+Le morceau de code de l'exercice 3 initialise une variable s'appelant tmp et étant un nombre entier.
+
+si la température est inférieure à 0 , la fonction printf affiche dans la console "Freezing weather."
+
+si la température est inférieure à 10 , la fonction printf affiche dans la console "Very cold weather."
+
+si la température est inférieure à 20 , la fonction printf affiche dans la console "Cold weather."
+
+si la température est inférieure à 30 , la fonction printf affiche dans la console "Normal in temp."
+
+si la température est inférieure à 40 , la fonction printf affiche dans la console "Its Hot."
+
+si la température est supérieure à 40 , la fonction printf affiche dans la console "Its very hot."
