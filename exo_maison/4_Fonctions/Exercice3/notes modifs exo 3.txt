@@ -1,0 +1,6 @@
+} ligne 5
+) ligne 4 + espace avant to:
+ligne 9 : retiré car pas d'arguments pour appeler la fonction
+ligne 10 : remplacé contactName par toName + remplacé les [] par des ()
+ligne 11 : remplacé myName par fromName
+ligne 12 : remplacé myMessage par message

@@ -1,0 +1,11 @@
+Premier exemple
+
+firstLanguage = "Javascript";
+secondLanguage = "Javascript";
+thridLanguage = "HTML";
+
+deuxieme exemple
+
+firstLanguage = "Javascript";
+secondLanguage = "Javascript";
+thridLanguage = "Javascript";

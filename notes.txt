@@ -1,0 +1,1 @@
+"Ceci est ma première note dans VS Code"
