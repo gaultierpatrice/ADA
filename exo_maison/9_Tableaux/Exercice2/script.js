@@ -46,4 +46,12 @@ const students = {
   },
 }
 
-function averageGradeByStudent() {}
+function averageGradeByStudent() {
+  let result = []
+  for (let i = 0; i < students.length; i++) {
+    result.push(students[i].grades)
+  }
+  console.log(result)
+}
+
+averageGradeByStudent(students)
