@@ -61,7 +61,11 @@ function averageGradeByStudent(students) {
     const average = sum / grades.length
     console.log(`${student.name}: ${average}`)
 
-    studentAverages[student.name] = average
+    studentAverages[student.name] = {
+      average: average,
+      major: student.major,
+      absences: student.absences,
+    }
   }
   console.log(studentAverages)
   return studentAverages
@@ -94,6 +98,7 @@ function studentByProgram() {
     Students in Physics: ${studentsInPhysics}
     Students in Mathematics: ${studentsInMathematics}
     `)
+  return
 }
 
 studentByProgram(students)
@@ -103,7 +108,7 @@ function bestAverageStudent(studentAverages) {
   let bestAverage = 0
 
   for (const name in studentAverages) {
-    const avg = studentAverages[name]
+    const avg = studentAverages[name].average
     if (avg > bestAverage) {
       bestAverage = avg
       bestStudent = name
@@ -115,10 +120,60 @@ function bestAverageStudent(studentAverages) {
 
 bestAverageStudent(studentAverages)
 
-function averageByProgram() {}
+function averageAndAbsenceByProgram(studentAverages) {
+  let csTotalAvg = 0,
+    csTotalAbs = 0,
+    csCount = 0
+  let mathTotalAvg = 0,
+    mathTotalAbs = 0,
+    mathCount = 0
+  let physTotalAvg = 0,
+    physTotalAbs = 0,
+    physCount = 0
 
-// averageByProgram()
+  for (const name in studentAverages) {
+    const student = studentAverages[name]
+    if (student.major === "Computer Science") {
+      csTotalAvg += student.average
+      csTotalAbs += student.absences
+      csCount++
+    } else if (student.major === "Mathematics") {
+      mathTotalAvg += student.average
+      mathTotalAbs += student.absences
+      mathCount++
+    } else if (student.major === "Physics") {
+      physTotalAvg += student.average
+      physTotalAbs += student.absences
+      physCount++
+    }
+  }
 
-function addGrade() {}
+  // then compute and print
+  if (csCount > 0) {
+    console.log("Computer Science:")
+    console.log("  Average of averages:", csTotalAvg / csCount)
+    console.log("  Average of absences:", csTotalAbs / csCount)
+  }
 
-// addGrade()
+  if (mathCount > 0) {
+    console.log("Mathematics:")
+    console.log("  Average of averages:", mathTotalAvg / mathCount)
+    console.log("  Average of absences:", mathTotalAbs / mathCount)
+  }
+
+  if (physCount > 0) {
+    console.log("Physics:")
+    console.log("  Average of averages:", physTotalAvg / physCount)
+    console.log("  Average of absences:", physTotalAbs / physCount)
+  }
+}
+
+averageAndAbsenceByProgram(studentAverages)
+
+function addGradeToClaire(students) {
+  students["A001"].grades.push(0)
+
+  console.log(students["A001"].grades)
+}
+
+addGradeToClaire(students)

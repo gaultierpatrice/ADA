@@ -77,7 +77,7 @@ function pagesAverageByGenre(genre) {
     }
   }
   const average = totalPages / booksInGenre
-  console.log(average)
+  console.log(`${average} pages in ${genre} books`)
 }
 
 pagesAverageByGenre("art")
