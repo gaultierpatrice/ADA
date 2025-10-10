@@ -55,28 +55,33 @@ const books = [
   },
 ]
 
-function searchByAuthor() {
+function searchByAuthor(author) {
   let result = []
   for (let i = 0; i < books.length; i++) {
-    if (books[i].author === "Alice Martin") {
+    if (books[i].author === author) {
       result.push(books[i].title)
     }
   }
   console.log(result)
 }
 
-searchByAuthor(books)
+searchByAuthor("Alice Martin")
 
-function pagesAverage() {
+function pagesAverageByGenre(genre) {
   let totalPages = 0
+  let booksInGenre = 0
   for (let i = 0; i < books.length; i++) {
-    totalPages += books[i].pages
+    if (books[i].genre === genre) {
+      totalPages += books[i].pages
+      booksInGenre++
+    }
   }
-  const average = totalPages / books.length
+  const average = totalPages / booksInGenre
   console.log(average)
 }
 
-pagesAverage(books)
+pagesAverageByGenre("art")
+pagesAverageByGenre("programming")
 
 function mostRecentBook() {
   let result = []
