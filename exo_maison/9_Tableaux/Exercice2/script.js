@@ -48,24 +48,26 @@ const students = {
 
 function averageGradeByStudent(students) {
   let studentAverages = {}
+
   for (const id in students) {
     const student = students[id]
     const grades = student.grades
     let sum = 0
+
     for (let i = 0; i < grades.length; i++) {
       sum += grades[i]
     }
+
     const average = sum / grades.length
     console.log(`${student.name}: ${average}`)
-    studentAverages.name = student.name
-    studentAverages.average = average
-  }
 
-  return studentAverages
+    studentAverages[student.name] = average
+  }
   console.log(studentAverages)
+  return studentAverages
 }
 
-averageGradeByStudent(students)
+const studentAverages = averageGradeByStudent(students)
 
 function studentByProgram() {
   let studentsInPhysics = []
@@ -96,14 +98,12 @@ function studentByProgram() {
 
 studentByProgram(students)
 
-console.log(averages)
-
-function bestAverageStudent(averages) {
+function bestAverageStudent(studentAverages) {
   let bestStudent = null
   let bestAverage = 0
 
-  for (const name in averages) {
-    const avg = averages[name]
+  for (const name in studentAverages) {
+    const avg = studentAverages[name]
     if (avg > bestAverage) {
       bestAverage = avg
       bestStudent = name
@@ -113,12 +113,12 @@ function bestAverageStudent(averages) {
   return { bestStudent, bestAverage }
 }
 
-bestAverageStudent()
+bestAverageStudent(studentAverages)
 
 function averageByProgram() {}
 
-averageByProgram()
+// averageByProgram()
 
 function addGrade() {}
 
-addGrade()
+// addGrade()
