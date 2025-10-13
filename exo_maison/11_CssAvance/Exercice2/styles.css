@@ -30,7 +30,7 @@ aside {
   min-height: 20vh;
 }
 
-.carre-card {
+.card-square {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 0.5em;
