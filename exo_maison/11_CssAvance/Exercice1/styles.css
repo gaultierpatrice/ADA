@@ -29,4 +29,7 @@ img {
 main {
   width: 80vw;
   margin: 1rem auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
