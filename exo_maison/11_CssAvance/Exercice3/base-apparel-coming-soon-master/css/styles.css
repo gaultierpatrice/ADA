@@ -1,20 +1,150 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column-reverse;
+}
+
 * {
   font-family: "Josefin Sans", sans-serif;
   font-size: 16px;
+  margin-left: 0;
+  margin-right: 0;
 }
 
-/* header {
-} */
+header {
+  padding: 20px;
+}
 
-main {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
+@media (min-width: 375px) {
+  main {
+    flex-direction: row;
+    max-width: 1200px;
+    margin: 0 auto;
+    align-items: center;
+  }
+}
+
+.image-field,
+.text-field {
+  flex: 1 1 50%;
+  height: 100%;
+}
+
+.image-field {
+  width: 100%;
+  max-width: 100%;
+}
+
+.image-field img {
+  width: 100%;
+  height: auto;
+  display: block;
 }
 
 .text-field {
-  max-width: 500px;
-  text-align: center; /* Centers the text inside */
-  margin: auto; /* Helps if needed for layout */
+  text-align: center;
+  margin-top: 1em;
+}
+
+.we {
+  color: hsl(0, 36%, 70%);
+  font-size: 1em;
+}
+
+.logo {
+  scale: 0.6;
+}
+
+h1 {
+  font-size: 2em;
+  color: hsl(0, 36%, 70%);
+}
+
+h1.coming-soon {
+  margin-top: 0em;
+  margin-bottom: 0em;
+}
+
+p {
+  color: hsl(0, 36%, 70%);
+}
+
+.coming-soon {
+  text-transform: uppercase;
+  color: black;
+}
+
+input {
+  color: hsl(0, 36%, 70%);
+  border: 1px solid hsl(0, 36%, 70%);
+  border-radius: 20%;
+}
+
+.email-form {
+  display: flex;
+  align-items: center;
+  border-radius: 30px;
+  justify-content: center;
+}
+
+.email-form input {
+  border: 1px solid hsl(0, 36%, 70%);
+  border-radius: 15px;
+  outline: none;
+  background: transparent;
+  font-size: 1em;
+  color: #444;
+  padding: 0.5em;
+}
+
+.email-form input::placeholder {
+  color: hsl(0, 36%, 70%);
+  font-family: "Josefin Sans", sans-serif, 300;
+  font-size: 1em;
+  padding: 2em;
+}
+
+.email-form button {
+  background: linear-gradient(135deg, hsl(0, 80%, 86%), hsl(0, 74%, 74%));
+  border: none;
+  border-radius: 40%;
+  width: 2em;
+  height: 2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.15),
+    -2px -2px 6px rgba(255, 255, 255, 0.8);
+  transition: transform 0.2s ease;
+}
+
+.email-form button:hover {
+  transform: scale(1.05);
+}
+
+.email-form button span {
+  color: white;
+  transform: translateX(1px);
+}
+
+footer {
+  max-height: 2em;
+  position: absolute;
+  bottom: 0;
+  margin: 0;
+  margin-top: 0;
 }

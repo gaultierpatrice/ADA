@@ -33,7 +33,7 @@ aside {
 .card-square {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 0.5em;
+  gap: 1em;
   width: 100%;
   height: 100%;
 }

@@ -34,20 +34,30 @@
   </head>
   <body>
     <header>
-      <img src="images/logo.svg" />
+      <img class="logo" src="images/logo.svg" />
     </header>
     <main>
       <div class="text-field">
-        <h1>We're <br />coming soon</h1>
+        <h1 class="coming-soon">
+          <span class="we">We're</span><br />coming <br />soon
+        </h1>
         <p>
           Hello fellow shoppers! We're currently building our new fashion store.
           Add your email below to stay up-to-date with announcements and our
           launch deals.
         </p>
-        <input type="email" name="email" />Email Address
+        <div class="email-form">
+          <input type="email" name="email" placeholder="Email Address :" />
+          <button type="submit">
+            <span><img src="images/icon-arrow.svg" /></span>
+          </button>
+        </div>
       </div>
       <div class="image-field">
-        <img src="images/hero-desktop.jpg" />
+        <picture>
+          <source media="(max-width: 375px)" srcset="images/hero-mobile.jpg" />
+          <img src="images/hero-desktop.jpg" alt="Lady in an orange skirt" />
+        </picture>
       </div>
     </main>
 
