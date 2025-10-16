@@ -1,14 +1,11 @@
 html,
 body {
-  height: 100%;
   margin: 0;
   padding: 0;
 }
 body {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
   background-image: url("../images/bg-pattern-desktop.svg");
+  background-size: cover;
 }
 
 header {
@@ -18,6 +15,7 @@ header {
 main {
   width: 100%;
   max-width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column-reverse;
 }
@@ -32,62 +30,41 @@ main {
 header {
   padding: 20px;
 }
-
-main {
-  flex: 1;
+.image-field {
+  flex: 1 2;
   width: 100%;
   max-width: 100%;
 }
 
-@media (min-width: 375px) {
-  main {
-    flex-direction: row;
-    max-width: 1200px;
-    margin: 0 auto;
-    align-items: center;
-  }
-  .image-field,
-  .text-field {
-    flex: 1 2 50%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* centers content vertically */
-    height: 100%;
-  }
-
-  .text-field {
-    flex: 2;
-    text-align: center;
-    margin: auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
-    gap: 0.5rem;
-  }
-
-  .image-field {
-    flex: 1 2;
-    width: 100%;
-    max-width: 100%;
-  }
-
-  .image-field img {
-    width: 100%;
-    height: auto;
-    display: block;
-  }
+.image-field img {
+  width: 100%;
+  height: auto;
+  display: block;
 }
 
 .text-field {
-  flex: 1 2;
+  flex: 2 1;
   text-align: center;
   margin: auto;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-evenly;
   text-align: center;
   gap: 0.5rem;
+  margin-bottom: 15rem;
+}
+
+.text-field h1 {
+  margin-top: 0.5em;
+  padding: 0.5em;
+  font-weight: 500;
+}
+
+.text-field p {
+  line-height: 150%;
+  font-size: 0.7em;
+  padding-left: 40px;
+  padding-right: 40px;
 }
 
 .we {
@@ -112,19 +89,6 @@ h1.coming-soon {
 p {
   color: hsl(0, 36%, 70%);
   font-size: small;
-}
-
-.text-field h1 {
-  margin-top: 0.5em;
-  padding: 0.5em;
-  font-weight: 500;
-}
-
-.text-field p {
-  line-height: 150%;
-  font-size: 0.7em;
-  padding-left: 40px;
-  padding-right: 40px;
 }
 
 .coming-soon {
@@ -201,4 +165,39 @@ footer {
 
 .attribution {
   display: none;
+}
+
+@media (min-width: 376px) {
+  main {
+    flex-direction: row;
+    align-items: center;
+  }
+  .image-field,
+  .text-field {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+  }
+
+  .text-field {
+    text-align: center;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 15rem;
+  }
+
+  .image-field {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .image-field img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
 }
