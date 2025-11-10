@@ -1,5 +1,6 @@
 Coded by Gaultier Patrice
 Ada Training
+
 Titre Horoscope du Dev
 
 Description simple du projet: parcourir un tableau et afficher automatiquement les elements du tableau sur notre site

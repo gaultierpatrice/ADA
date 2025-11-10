@@ -1,5 +1,6 @@
 Coded by Gaultier Patrice
 Ada Training
+
 Titre Mes recette de saison
 
 Description simple du projet: Manipuler le DOM pour remplacer automatiquement des balises html avec du contenu

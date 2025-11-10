@@ -1,6 +1,8 @@
 Coded by Gaultier Patrice
+
 Ada Training
-Titre
+
+Titre:
 
 Description simple du projet:
 

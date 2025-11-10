@@ -1,0 +1,20 @@
+Sur la page d'accueil
+
+Nombre d'images dans l'onglet Network/images du DevTools : 157 requetes
+
+Image la plus lourde de la page : Capture-decran-2024-04-16-a-15.17.24-e1713274538136.png
+
+Sur Mooble : 
+
+Je pense que la requete qui s'occupe d'envoyer le mot de passe est la requete :
+
+POST
+
+car dans le Form Data, c'est a dire la donnée transmise au serveur, il se trouve :
+
+{
+	"anchor": "",
+	"logintoken": "CPvLXBeFv60OwHZa47INLvUJdybrTs4J", // Mon token pour me garder connecté
+	"username": "gpatrice", // Mon username
+	"password": "fsdlkfnsl" // Mon mot de passe crypté
+}

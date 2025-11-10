@@ -1,0 +1,32 @@
+Question 1: Liste totale des chansons grace a la requete GET:
+
+cf responseGetRequest.txt
+
+Question 2: Informations de la chanson avec (ID:3) :
+
+"title": "ea molestias quasi exercitationem repellat qui ipsa sit aut",
+"body": "et iusto sed quo iure\nvoluptatem occaecati omnis eligendi aut 
+ad\nvoluptatem doloribus vel accusantium quis pariatur\nmolestiae porro
+ eius odio et labore et velit aut"
+ 
+ Question 3: Modele de la requete POST envoyée :
+ 
+ addresse de destination : https://jsonplaceholder.typicode.com/posts
+ 
+ body {
+	"userId" : 1,
+	"id" : 101 ,
+	"title" : "titre de chanson au hasard"
+	"body" : "dicta non quod"
+ }
+ 
+ Question 4: Requete DELETE pour effacer la chanson que nous avons créé :
+ 
+ addresse de destination : https://jsonplaceholder.typicode.com/posts/101
+ 
+ body {
+	"userId" : 1 ,
+	"id" : 101 , 
+	"title" : "titre de chanson au hasard"
+	"body" : "dicta non quod"
+}

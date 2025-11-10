@@ -1,0 +1,10 @@
+HTTP/2 301                      # Status line: HTTP version and response status code (301 = Moved Permanently) 
+date: Tue, 21 Oct 2025 09:55:06 GMT  # Date and time when the response was sent by the server
+content-type: text/html; charset=UTF-8  # Media type of the resource and character encoding
+server: OVHcloud                 # Server software handling the request
+x-powered-by: PHP/8.2            # Indicates the technology used on the server (PHP version)
+expires: Tue, 21 Oct 2025 10:55:06 GMT  # Expiration date of the cached response
+cache-control: max-age=3600      # Caching policy: how long the response can be cached (in seconds)
+x-redirect-by: WordPress         # Indicates that WordPress triggered a redirect
+location: https://adatechschool.fr/  # URL to which the client is redirected (because of 301)
+vary: Accept-Encoding             # Indicates that response may vary based on the Accept-Encoding header
