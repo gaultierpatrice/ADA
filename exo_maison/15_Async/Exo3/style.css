@@ -1,0 +1,19 @@
+#responseContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+p {
+  padding: 1rem;
+}
+
+#responseContainer div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#responseContainer img {
+  max-width: 5rem;
+}
