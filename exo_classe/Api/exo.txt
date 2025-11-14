@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>API Calls Demo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      * {
+        margin: 0;
+      }
+
+      p,
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        overflow-wrap: break-word;
+      }
+
+      body {
+        padding: 20px;
+      }
+
+      button {
+        padding: 10px 20px;
+        margin: 0 5px;
+        cursor: pointer;
+      }
+
+      #search-controls {
+        margin: 20px 0;
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      #searchInput {
+        padding: 10px;
+        font-size: 16px;
+        flex: 1;
+        min-width: 200px;
+        border: 1px solid #ccc;
+      }
+
+      #pagination-controls {
+        margin: 20px 0;
+        text-align: center;
+      }
+
+      #pagination-controls span {
+        margin: 0 15px;
+      }
+
+      #result {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+      }
+
+      .card {
+        padding: 20px;
+        border: 1px solid #ddd;
+      }
+
+      @media (max-width: 1200px) {
+        #result {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+
+      @media (max-width: 768px) {
+        #result {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (max-width: 480px) {
+        #result {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .card h2 {
+        margin-top: 0;
+      }
+
+      .card p {
+        margin: 10px 0;
+      }
+
+      .card-map {
+        width: 100%;
+        height: 300px;
+        margin-top: 15px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>API Calls Demo</h1>
+
+    <div id="search-controls">
+      <input 
+        type="text" 
+        id="searchInput" 
+        placeholder="Search stations by name..."
+      />
+      <button id="searchBtn">Search</button>
+      <button id="clearBtn">Clear</button>
+    </div>
+
+    <div id="pagination-controls"></div>
+    <div id="result"></div>
+
+    <script>
+      // Get the result and pagination containers
+      const resultDiv = document.getElementById("result");
+      const paginationDiv = document.getElementById("pagination-controls");
+      const searchInput = document.getElementById("searchInput");
+      const searchBtn = document.getElementById("searchBtn");
+      const clearBtn = document.getElementById("clearBtn");
+
+      // Pagination state
+      let stationsOnPage = [];
+      let currentPage = 1;
+      let totalCount = 0;
+      let searchQuery = "";
+      const itemsPerPage = 24;
+
+      // Load first page on page load
+      document.addEventListener("DOMContentLoaded", () => {
+        const pageFromUrl = getPageFromUrl();
+        const queryFromUrl = getSearchQueryFromUrl();
+        searchInput.value = queryFromUrl;
+        searchQuery = queryFromUrl;
+        router(pageFromUrl);
+
+        // Setup search event listeners
+        searchBtn.addEventListener("click", () => performSearch());
+        clearBtn.addEventListener("click", () => clearSearch());
+        searchInput.addEventListener("keypress", (e) => {
+          if (e.key === "Enter") performSearch();
+        });
+      });
+
+      // Handle browser back/forward buttons
+      window.addEventListener("popstate", () => {
+        const pageFromUrl = getPageFromUrl();
+        fetchPage(pageFromUrl);
+      });
+
+      // Function to get page number from URL
+      function getPageFromUrl() {
+        const params = new URLSearchParams(window.location.search);
+        const page = parseInt(params.get("page")) || 1;
+        return Math.max(1, page);
+      }
+
+      // Function to get search query from URL
+      function getSearchQueryFromUrl() {
+        const params = new URLSearchParams(window.location.search);
+        return params.get("q") || "";
+      }
+
+      // Function to update URL with current page and search query
+      function updateUrl(page) {
+        const url = new URL(window.location);
+        url.searchParams.set("page", page);
+        if (searchQuery) {
+          url.searchParams.set("q", searchQuery);
+        } else {
+          url.searchParams.delete("q");
+        }
+        window.history.pushState({}, "", url);
+      }
+
+      // Function to route page changes
+      function router(page) {
+        updateUrl(page);
+        fetchPage(page);
+      }
+
+      // Function to fetch data from API for a specific page
+      async function fetchPage(page) {
+        try {
+          const offset = (page - 1) * itemsPerPage;
+          let url = `https://data.sncf.com/api/explore/v2.1/catalog/datasets/gares-de-voyageurs/records?limit=${itemsPerPage}&offset=${offset}`;
+
+          // Add search query to URL if present
+          if (searchQuery) {
+            url += `&where=nom like "%25${encodeURIComponent(searchQuery)}%25"`;
+          }
+
+          const response = await fetch(url);
+
+          // Check if the response is successful
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+
+          // Parse the JSON data
+          const data = await response.json();
+
+          // Store data for current page
+          stationsOnPage = data.results;
+          totalCount = data.total_count;
+          currentPage = page;
+
+          // Display the page and pagination
+          displayResults();
+          displayPagination();
+        } catch (error) {
+          // Handle any errors
+          resultDiv.innerHTML = `<p>Error: ${error.message}</p>`;
+          console.error("Fetch error:", error);
+        }
+      }
+
+      // Function to display the current page results
+      function displayResults() {
+        let html = "";
+
+        stationsOnPage.forEach((station, index) => {
+          const mapId = `map-${currentPage}-${index}`;
+          html += `
+            <div class="card">
+              <h2>${station.nom || "N/A"}</h2>
+              <p><strong>Code:</strong> ${station.libellecourt || "N/A"}</p>
+              <p><strong>UIC:</strong> ${station.codes_uic || "N/A"}</p>
+              <p><strong>Segment:</strong> ${station.segment_drg || "N/A"}</p>
+              <p><strong>Location:</strong> ${
+                station.position_geographique?.lat || "N/A"
+              }, ${station.position_geographique?.lon || "N/A"}</p>
+              <div id="${mapId}" class="card-map"></div>
+            </div>
+          `;
+        });
+
+        resultDiv.innerHTML = html;
+
+        // Initialize maps for each card
+        initializeMaps();
+      }
+
+      // Function to initialize Leaflet maps for each card
+      function initializeMaps() {
+        stationsOnPage.forEach((station, index) => {
+          const mapId = `map-${currentPage}-${index}`;
+          const mapElement = document.getElementById(mapId);
+
+          if (
+            mapElement &&
+            station.position_geographique?.lat &&
+            station.position_geographique?.lon
+          ) {
+            const lat = station.position_geographique.lat;
+            const lon = station.position_geographique.lon;
+
+            const map = L.map(mapId).setView([lat, lon], 11);
+
+            L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+              attribution: "© OpenStreetMap contributors",
+              maxZoom: 19,
+            }).addTo(map);
+
+            L.marker([lat, lon])
+              .addTo(map)
+              .bindPopup(station.nom || "Station");
+          }
+        });
+      }
+
+      // Function to display pagination controls
+      function displayPagination() {
+        const totalPages = Math.ceil(totalCount / itemsPerPage);
+
+        let html = `
+          <button id="prevBtn" onclick="router(${currentPage - 1})" ${
+          currentPage === 1 ? "disabled" : ""
+        }>Previous</button>
+          <span>Page ${currentPage} of ${totalPages}</span>
+          <button id="nextBtn" onclick="router(${currentPage + 1})" ${
+          currentPage === totalPages ? "disabled" : ""
+        }>Next</button>
+        `;
+
+        paginationDiv.innerHTML = html;
+      }
+
+      // Function to go to next page
+      function nextPage() {
+        const totalPages = Math.ceil(totalCount / itemsPerPage);
+        if (currentPage < totalPages) {
+          router(currentPage + 1);
+        }
+      }
+
+      // Function to go to previous page
+      function previousPage() {
+        if (currentPage > 1) {
+          router(currentPage - 1);
+        }
+      }
+
+      // Function to perform search
+      function performSearch() {
+        searchQuery = searchInput.value.trim();
+        currentPage = 1; // Reset to first page on new search
+        router(currentPage);
+      }
+
+      // Function to clear search
+      function clearSearch() {
+        searchQuery = "";
+        searchInput.value = "";
+        currentPage = 1;
+        router(currentPage);
+      }
+    </script>
+  </body>
+</html>
